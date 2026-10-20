@@ -1,0 +1,27 @@
+{
+  "GMF": {
+    "HR@10": 0.6396,
+    "NDCG@10": 0.3676,
+    "best_epoch": 40
+  },
+  "MLP": {
+    "HR@10": 0.675,
+    "NDCG@10": 0.3978,
+    "best_epoch": 44
+  },
+  "NeuMF-end": {
+    "HR@10": 0.6904,
+    "NDCG@10": 0.4086,
+    "best_epoch": 19
+  },
+  "LightGCN": {
+    "HR@10": 0.7149,
+    "NDCG@10": 0.4265,
+    "best_epoch": 220
+  },
+  "SASRec": {
+    "HR@10": 0.8295,
+    "NDCG@10": 0.5976,
+    "best_epoch": "mean of 3 seeds"
+  }
+}
