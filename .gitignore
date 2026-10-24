@@ -2,5 +2,6 @@ __pycache__/
 *.pth
 *.log
 *.pyc
+*.pptx
 ml1m_data/
 runs_smoke/
