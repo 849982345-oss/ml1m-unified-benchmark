@@ -1,0 +1,74 @@
+[
+  {
+    "model": "BPR-MF",
+    "HR@10": 0.6889,
+    "NDCG@10": 0.413,
+    "best_epoch": 50,
+    "paper_HR": "—",
+    "paper_NDCG": "—",
+    "source": "C:\\research-training\\ml1m-unified-benchmark\\runs\\bpr_mf\\run1\\metrics.tsv"
+  },
+  {
+    "model": "GMF",
+    "HR@10": 0.6396,
+    "NDCG@10": 0.3676,
+    "best_epoch": 40,
+    "paper_HR": null,
+    "paper_NDCG": null,
+    "source": "C:\\research-training\\repro-ncf\\ncf_pytorch\\logs\\GMF_ml-1m_factor8.tsv"
+  },
+  {
+    "model": "MLP",
+    "HR@10": 0.675,
+    "NDCG@10": 0.3978,
+    "best_epoch": 44,
+    "paper_HR": null,
+    "paper_NDCG": null,
+    "source": "C:\\research-training\\repro-ncf\\ncf_pytorch\\logs\\MLP_ml-1m_factor8.tsv"
+  },
+  {
+    "model": "NeuMF",
+    "HR@10": 0.6904,
+    "NDCG@10": 0.4086,
+    "best_epoch": 19,
+    "paper_HR": "0.688",
+    "paper_NDCG": "0.410",
+    "source": "C:\\research-training\\repro-ncf\\ncf_pytorch\\logs\\NeuMF-end_ml-1m_factor8.tsv"
+  },
+  {
+    "model": "NGCF",
+    "HR@10": 0.6879,
+    "NDCG@10": 0.415,
+    "best_epoch": 140,
+    "paper_HR": null,
+    "paper_NDCG": null,
+    "source": "C:\\research-training\\ml1m-unified-benchmark\\runs\\ngcf\\run1\\metrics.tsv"
+  },
+  {
+    "model": "LightGCN",
+    "HR@10": 0.7149,
+    "NDCG@10": 0.4265,
+    "best_epoch": 220,
+    "paper_HR": null,
+    "paper_NDCG": null,
+    "source": "C:\\research-training\\ml1m-unified-benchmark\\lightgcn\\logs\\lightgcn_ml-1m_run1.tsv"
+  },
+  {
+    "model": "SASRec",
+    "HR@10": 0.8295,
+    "NDCG@10": 0.5976,
+    "best_epoch": 200,
+    "paper_HR": "0.8235",
+    "paper_NDCG": "0.5958",
+    "source": "3 seeds"
+  },
+  {
+    "model": "BERT4Rec",
+    "HR@10": 0.7785,
+    "NDCG@10": 0.5669,
+    "best_epoch": 650,
+    "paper_HR": null,
+    "paper_NDCG": null,
+    "source": "C:\\research-training\\ml1m-unified-benchmark\\runs\\bert4rec\\long\\metrics.tsv"
+  }
+]

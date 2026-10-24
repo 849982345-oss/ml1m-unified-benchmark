@@ -1,0 +1,16 @@
+{
+  "model": "bpr_mf",
+  "dim": 64,
+  "lr": 0.001,
+  "reg": 0.0001,
+  "bs": 2048,
+  "epochs": 300,
+  "seed": 42,
+  "dataset": {
+    "users": 6040,
+    "items": 3706,
+    "train": 994169,
+    "test": 6040,
+    "candidates": 100
+  }
+}

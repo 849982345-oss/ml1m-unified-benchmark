@@ -1,0 +1,18 @@
+{
+  "model": "ngcf",
+  "dim": 64,
+  "layers": 3,
+  "lr": 0.001,
+  "reg": 0.0001,
+  "bs": 2048,
+  "epochs": 300,
+  "seed": 42,
+  "dropout": 0.0,
+  "dataset": {
+    "users": 6040,
+    "items": 3706,
+    "train": 994169,
+    "test": 6040,
+    "candidates": 100
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": "bert4rec",
+  "dim": 64,
+  "layers": 2,
+  "lr": 0.001,
+  "bs": 2048,
+  "epochs": 200,
+  "seed": 42,
+  "maxlen": 200,
+  "dropout": 0.2,
+  "mask_prob": 0.2
+}

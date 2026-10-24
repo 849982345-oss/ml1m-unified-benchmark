@@ -1,0 +1,31 @@
+============================================================
+ model = bert4rec | {'model': 'bert4rec', 'dim': 64, 'layers': 2, 'heads': 1, 'maxlen': 200, 'mask_prob': 0.2, 'lr': 0.001, 'reg': 0.0001, 'bs': 2048, 'dropout': 0.2, 'epochs': 200, 'eval_every': 10, 'seed': 42, 'tag': 'run1', 'out': 'runs'}
+============================================================
+seqdata: users=6040 items=3706 users_with_test=6040
+固定候选用户数: 6040
+C:\research-training\ml1m-unified-benchmark\models\bert4rec.py:98: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = torch.nn.TransformerEncoder(layer, num_layers=blocks)
+batch_size = 128
+C:\research-training\ml1m-unified-benchmark\models\bert4rec.py:156: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\utils\tensor_new.cpp:255.)
+  seq = torch.LongTensor([seqs[u] for u in batch]).to(dev)
+epoch  10 | HR@10 0.6745 | NDCG@10 0.4317 | best HR 0.6745 @10 | 7s
+epoch  20 | HR@10 0.7058 | NDCG@10 0.4810 | best HR 0.7058 @20 | 13s
+epoch  30 | HR@10 0.7329 | NDCG@10 0.5135 | best HR 0.7329 @30 | 20s
+epoch  40 | HR@10 0.7432 | NDCG@10 0.5247 | best HR 0.7432 @40 | 26s
+epoch  50 | HR@10 0.7531 | NDCG@10 0.5408 | best HR 0.7531 @50 | 33s
+epoch  60 | HR@10 0.7538 | NDCG@10 0.5385 | best HR 0.7538 @60 | 39s
+epoch  70 | HR@10 0.7579 | NDCG@10 0.5433 | best HR 0.7579 @70 | 45s
+epoch  80 | HR@10 0.7570 | NDCG@10 0.5445 | best HR 0.7579 @70 | 52s
+epoch  90 | HR@10 0.7682 | NDCG@10 0.5516 | best HR 0.7682 @90 | 58s
+epoch 100 | HR@10 0.7624 | NDCG@10 0.5515 | best HR 0.7682 @90 | 64s
+epoch 110 | HR@10 0.7695 | NDCG@10 0.5579 | best HR 0.7695 @110 | 71s
+epoch 120 | HR@10 0.7661 | NDCG@10 0.5555 | best HR 0.7695 @110 | 77s
+epoch 130 | HR@10 0.7700 | NDCG@10 0.5581 | best HR 0.7700 @130 | 84s
+epoch 140 | HR@10 0.7679 | NDCG@10 0.5608 | best HR 0.7700 @130 | 90s
+epoch 150 | HR@10 0.7697 | NDCG@10 0.5568 | best HR 0.7700 @130 | 96s
+epoch 160 | HR@10 0.7727 | NDCG@10 0.5582 | best HR 0.7727 @160 | 103s
+epoch 170 | HR@10 0.7747 | NDCG@10 0.5606 | best HR 0.7747 @170 | 109s
+epoch 180 | HR@10 0.7781 | NDCG@10 0.5648 | best HR 0.7781 @180 | 116s
+epoch 190 | HR@10 0.7679 | NDCG@10 0.5573 | best HR 0.7781 @180 | 122s
+epoch 200 | HR@10 0.7719 | NDCG@10 0.5620 | best HR 0.7781 @180 | 128s
+BEST: {'best_HR@10': 0.778146, 'best_NDCG@10': 0.564777, 'best_epoch': 180, 'seconds': 128.4}
