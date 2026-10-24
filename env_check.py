@@ -106,17 +106,23 @@ for name, path in REPOS.items():
     except Exception as e:
         item(False, "%-24s git 读取失败" % name)
 
-LOGS = [
-    (r"C:\research-training\repro-ncf\ncf_pytorch\logs\GMF_ml-1m_factor8.tsv", "NCF-GMF"),
-    (r"C:\research-training\repro-ncf\ncf_pytorch\logs\MLP_ml-1m_factor8.tsv", "NCF-MLP"),
-    (r"C:\research-training\repro-ncf\ncf_pytorch\logs\NeuMF-end_ml-1m_factor8.tsv", "NCF-NeuMF"),
-    (r"C:\research-training\check-2026-10\logs\lightgcn_ml-1m_run1.tsv", "LightGCN"),
-]
-for p, name in LOGS:
-    if os.path.exists(p):
-        item(True, "逐epoch日志 %-12s %d 条记录" % (name, sum(1 for _ in io.open(p, encoding="utf-8")) - 1))
-    else:
-        item(False, "逐epoch日志 %-12s 缺失" % name)
+# 每篇论文一个文件夹，检查它是否「自包含」（模型 + 说明 + 结果）
+REPOS_ROOT = os.path.dirname(os.path.abspath(__file__))
+PAPERS_DIR = os.path.join(REPOS_ROOT, 'papers')
+EXPECT = ['01_bpr_mf_2009', '02_ncf_2017', '03_ngcf_2019',
+          '04_lightgcn_2020', '05_sasrec_2018', '06_bert4rec_2019']
+n_ok = 0
+for folder in EXPECT:
+    d = os.path.join(PAPERS_DIR, folder)
+    has_model = os.path.exists(os.path.join(d, 'model.py'))
+    has_readme = os.path.exists(os.path.join(d, 'README.md'))
+    res = os.path.join(d, 'results')
+    n_res = len([f for f in os.listdir(res) if f.endswith(('.tsv', '.txt'))]) if os.path.isdir(res) else 0
+    ok = has_model and has_readme and n_res > 0
+    n_ok += 1 if ok else 0
+    item(ok, "papers/%-20s 模型%s 说明%s 结果%d 份" % (
+        folder, "✓" if has_model else "✗", "✓" if has_readme else "✗", n_res))
+item(n_ok == len(EXPECT), "六篇论文文件夹全部自包含：%d / %d" % (n_ok, len(EXPECT)))
 
 # ---------------- 5 复现结果 ----------------
 sec("5. 复现结果(统一协议:ML-1M leave-one-out / 100 候选)")

@@ -19,7 +19,11 @@ import json
 import numpy as np
 import torch
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# 向上找到含 common/ 的仓库根（本文件在 papers/<论文>/ 下）
+_p = os.path.abspath(__file__)
+while _p != os.path.dirname(_p) and not os.path.isdir(os.path.join(_p, 'common')):
+    _p = os.path.dirname(_p)
+sys.path.insert(0, _p)
 from common.eval import Logger, set_seed, dump_config, hr_ndcg_at_k
 
 NCF_DIR = r"C:\research-training\repro-ncf\ncf_pytorch\ml1m_data"
@@ -133,7 +137,7 @@ def train(args):
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.98))
     bce = torch.nn.BCEWithLogitsLoss()
 
-    out = os.path.join(args.out, 'bert4rec', args.tag)
+    out = args.out or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results')
     log = Logger(os.path.join(out, 'metrics.tsv'))
     dump_config(out, model='bert4rec', dim=args.dim, layers=args.layers, lr=args.lr,
                 bs=args.bs, epochs=args.epochs, seed=args.seed, maxlen=args.maxlen,

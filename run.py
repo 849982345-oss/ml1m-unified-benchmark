@@ -1,32 +1,44 @@
 # -*- coding: utf-8 -*-
-"""统一入口：所有模型共用同一套数据、评估、日志、随机种子。
+"""统一入口：一篇论文一个文件夹，每个文件夹里跑自己的模型。
 
 用法::
-    python run.py --model bpr_mf  --epochs 300 --dim 64 --lr 1e-3 --reg 1e-4 --bs 2048
-    python run.py --model ngcf    --epochs 300 --dim 64 --layers 3 --lr 1e-3 --reg 1e-4 --bs 2048
-    python run.py --model lightgcn --epochs 300 ...
+    python run.py --model bpr_mf --epochs 300
+        → 结果自动写进 papers/01_bpr_mf_2009/results/metrics.tsv
 
-新增模型只需：在 models/ 下实现 `train(args)` 与 `score_candidates(users, items)`，
-然后在 MODELS 里注册一行。
+    python run.py --model ngcf   --epochs 300
+    python run.py --model bert4rec --epochs 200
+
+LightGCN 有自己的入口（它不是 BPR 式训练）::
+    python papers/04_lightgcn_2020/model.py --epochs 300
+
+新增一篇论文：在 papers/ 下建 0X_名字_年份/，放 model.py（实现 train(args)），
+然后在下面 PAPER_MODELS 里加一行。
 """
 import argparse
+import importlib.util
 import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
-MODELS = {
-    'bpr_mf': 'models.bpr_mf',
-    'ngcf': 'models.ngcf',
-    'lightgcn': 'models.lightgcn',
-    'bert4rec': 'models.bert4rec',
+PAPER_MODELS = {
+    'bpr_mf':   'papers/01_bpr_mf_2009/model.py',
+    'ngcf':     'papers/03_ngcf_2019/model.py',
+    'bert4rec': 'papers/06_bert4rec_2019/model.py',
 }
+
+
+def load(path):
+    spec = importlib.util.spec_from_file_location('paper_model', path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('--model', required=True, choices=sorted(MODELS))
+    p.add_argument('--model', required=True, choices=sorted(PAPER_MODELS))
     p.add_argument('--dim', type=int, default=64)
     p.add_argument('--layers', type=int, default=3)
     p.add_argument('--heads', type=int, default=1)
@@ -40,13 +52,17 @@ def main():
     p.add_argument('--eval_every', type=int, default=10)
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--tag', default='run1')
-    p.add_argument('--out', default=os.path.join(HERE, 'runs'))
+    p.add_argument('--out', default=None, help='默认写进该论文的 results/')
     args = p.parse_args()
 
-    mod = __import__(MODELS[args.model], fromlist=['train'])
-    print("=" * 60)
-    print(" model = %s | %s" % (args.model, vars(args)))
-    print("=" * 60, flush=True)
+    path = os.path.join(HERE, PAPER_MODELS[args.model])
+    print("=" * 66)
+    print(" 论文目录 : papers/%s/" % os.path.basename(os.path.dirname(path)))
+    print(" 模型文件 : %s" % PAPER_MODELS[args.model])
+    print(" 超参     : %s" % {k: v for k, v in vars(args).items() if k != 'model'})
+    print("=" * 66, flush=True)
+
+    mod = load(path)
     mod.train(args)
 
 
